@@ -27,19 +27,19 @@ class $modify(RRLevelInfoLayer, LevelInfoLayer) {
 
     void levelDownloadFinished(GJGameLevel* level) {
         LevelInfoLayer::levelDownloadFinished(level);
-        
+
         updateDifficultySprite(m_difficultySprite, level);
     }
 
     void levelUpdateFinished(GJGameLevel* level, UpdateResponse response) {
         LevelInfoLayer::levelUpdateFinished(level, response);
-        
+
         updateDifficultySprite(m_difficultySprite, level);
     }
 
     void likedItem(LikeItemType type, int id, bool liked) {
         LevelInfoLayer::likedItem(type, id, liked);
-        
+
         updateDifficultySprite(m_difficultySprite, m_level);
     }
 };
