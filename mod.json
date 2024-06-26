@@ -1,0 +1,33 @@
+{
+	"geode": "3.1.1",
+    "gd": {
+        "android": "2.206",
+        "win": "2.206",
+        "mac": "2.206"
+    },
+	"version": "v1.0.0",
+	"id": "hiimjustin000.requested_ratings",
+	"name": "Requested Ratings",
+	"developer": "hiimjustin000",
+	"description": "A mod that replaces unrated levels' ratings with their requested ones.",
+    "repository": "https://github.com/hiimjustin000/RequestedRatings",
+    "dependencies": [
+        {
+            "id": "geode.node-ids",
+            "version": ">=v1.12.0",
+            "importance": "required"
+        }
+    ],
+    "incompatibilities": [
+        {
+            "id": "hiimjustin000.na_demon",
+            "version": "*",
+            "importance": "superseded"
+        }
+    ],
+    "tags": [
+        "enhancement",
+        "interface",
+        "online"
+    ]
+}
