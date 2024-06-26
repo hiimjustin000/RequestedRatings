@@ -3,7 +3,7 @@
 using namespace geode::prelude;
 
 void updateDifficultySprite(GJDifficultySprite* sprite, GJGameLevel* level) {
-    if (level->m_stars.value() == 0) switch (level->m_starsRequested) {
+    if (level->m_stars.value() == 0 && level->m_starsRequested > 0) switch (level->m_starsRequested) {
         case 1: sprite->updateDifficultyFrame(-1, GJDifficultyName::Short); break;
         case 2: sprite->updateDifficultyFrame(1, GJDifficultyName::Short); break;
         case 3: sprite->updateDifficultyFrame(2, GJDifficultyName::Short); break;
@@ -11,7 +11,9 @@ void updateDifficultySprite(GJDifficultySprite* sprite, GJGameLevel* level) {
         case 6: case 7: sprite->updateDifficultyFrame(4, GJDifficultyName::Short); break;
         case 8: case 9: sprite->updateDifficultyFrame(5, GJDifficultyName::Short); break;
         case 10: sprite->updateDifficultyFrame(6, GJDifficultyName::Short); break;
-        default: sprite->updateDifficultyFrame(0, GJDifficultyName::Short); break;
+        default:
+            if (Mod::get()->getSettingValue<bool>("na-override")) sprite->updateDifficultyFrame(0, GJDifficultyName::Short);
+            break;
     }
 }
 
