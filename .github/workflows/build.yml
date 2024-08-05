@@ -66,19 +66,35 @@ jobs:
           curl -s https://raw.githubusercontent.com/${{ github.repository }}/master/mod.json -o mod.json
           echo version=$(jq -r .version mod.json) >> $GITHUB_OUTPUT
 
+      - name: Check Existing Release
+        id: check
+        run: |
+          RELEASE=$(gh release view ${{ steps.version.outputs.version }} --repo ${{ github.repository }} --json tagName || true)
+          if [ -z "$RELEASE" ]; then
+            echo "No release found for ${{ steps.version.outputs.version }}, continuing with release"
+            echo release=1 >> $GITHUB_OUTPUT
+          else
+            echo "Release found for ${{ steps.version.outputs.version }}, skipping release"
+            echo release=0 >> $GITHUB_OUTPUT
+          fi
+
       - name: Find Changelog
+        if: steps.check.outputs.release == '1'
         id: changelog
         run: |
           curl -s https://raw.githubusercontent.com/${{ github.repository }}/master/changelog.md -o changelog.md
-          echo changelog=$(awk "/## ${{ steps.version.outputs.version }}/{flag=1; next} /##/{flag=0} flag" changelog.md | sed -e :a -e '/^\n*$/{$d;N;ba}') >> $GITHUB_OUTPUT
+          echo -e changelog=$(awk "/## ${{ steps.version.outputs.version }}/{flag=1; next} /##/{flag=0} flag" changelog.md \
+            | sed -e :a -e '/^\n*$/{$d;N;ba}' | sed ':a;N;$!ba;s/\n/\\n/g') >> $GITHUB_OUTPUT
 
       - name: Download Build Output
+        if: steps.check.outputs.release == '1'
         uses: actions/download-artifact@v4
         with:
           name: Build Output
           path: build-output
 
       - name: Release Version
+        if: steps.check.outputs.release == '1'
         uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

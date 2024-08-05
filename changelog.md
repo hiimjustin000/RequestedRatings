@@ -1,4 +1,8 @@
 # Requested Ratings Changelog
+## v1.0.3-beta.1 (2024-08-05)
+- Test version for release workflow
+- Also testing multiline changelog entries
+
 ## v1.0.2 (2024-08-05)
 - Fixed a huge goof
 
