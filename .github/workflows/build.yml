@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - "master"
+      - "better-draft"
 
 jobs:
   build:
@@ -60,31 +60,13 @@ jobs:
     needs: ['package']
 
     steps:
-      - name: Delete Existing Release
-        uses: actions/github-script@v7
-        env:
-          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const owner = process.env.GITHUB_REPOSITORY.split("/")[0];
-            const repo = process.env.GITHUB_REPOSITORY.split("/")[1];
-            const response = await github.rest.repos.listReleases({ owner, repo });
-            console.log("Checking for existing release...");
-            for (const release of response.data) {
-              if (release.tag_name == process.env.COMMIT_MESSAGE) {
-                console.log("Existing release found, deleting...");
-                await github.rest.repos.deleteRelease({ owner, repo, release_id: release.id });
-                await github.rest.git.updateRef({
-                  owner,
-                  repo,
-                  ref: `tags/${release.tag_name}`,
-                  sha: context.sha,
-                  force: true
-                });
-              }
-            }
-            console.log("Done.");
+      - name: Find Version (mod.json) and Changelog (changelog.md)
+        id: version
+        run: echo version=$(jq -r .version mod.json) >> $GITHUB_OUTPUT
+
+      - name: Find Changelog (changelog.md)
+        id: changelog
+        run: echo changelog=$(awk "/## ${{ steps.version.outputs.version }}/{flag=1; next} /##/{flag=0} flag" changelog.md | sed -e :a -e '/^\n*$/{$d;N;ba}')
 
       - name: Download Build Output
         uses: actions/download-artifact@v4
@@ -102,4 +84,4 @@ jobs:
             build-output/*.pdb
           tag_name: ${{ github.event.head_commit.message }}
           name: ${{ github.event.head_commit.message }}
-          draft: true
+          body: ${{ steps.changelog.outputs.changelog }}
