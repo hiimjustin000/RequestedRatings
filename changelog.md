@@ -1,6 +1,6 @@
 # Requested Ratings Changelog
-## v0.0.0-test (2024-08-05)
-- Test release for the draft workflow
+## v1.0.2 (2024-08-05)
+- Fixed a huge goof
 
 ## v1.0.1 (2024-06-26)
 - Removed NA override for levels that don't request a rating

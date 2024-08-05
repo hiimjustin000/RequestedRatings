@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - "better-draft"
+      - "master"
 
 jobs:
   build:
@@ -63,13 +63,13 @@ jobs:
       - name: Find Version
         id: version
         run: |
-          curl -s https://raw.githubusercontent.com/${{ github.repository }}/better-draft/mod.json -o mod.json
+          curl -s https://raw.githubusercontent.com/${{ github.repository }}/master/mod.json -o mod.json
           echo version=$(jq -r .version mod.json) >> $GITHUB_OUTPUT
 
       - name: Find Changelog
         id: changelog
         run: |
-          curl -s https://raw.githubusercontent.com/${{ github.repository }}/better-draft/changelog.md -o changelog.md
+          curl -s https://raw.githubusercontent.com/${{ github.repository }}/master/changelog.md -o changelog.md
           echo changelog=$(awk "/## ${{ steps.version.outputs.version }}/{flag=1; next} /##/{flag=0} flag" changelog.md | sed -e :a -e '/^\n*$/{$d;N;ba}') >> $GITHUB_OUTPUT
 
       - name: Download Build Output
@@ -87,5 +87,4 @@ jobs:
             build-output/*.geode
             build-output/*.pdb
           tag_name: ${{ steps.version.outputs.version }}
-          name: ${{ steps.version.outputs.version }}
           body: ${{ steps.changelog.outputs.changelog }}
