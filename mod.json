@@ -5,7 +5,7 @@
         "win": "2.206",
         "mac": "2.206"
     },
-    "version": "v1.1.0",
+    "version": "v1.1.1",
     "id": "hiimjustin000.requested_ratings",
     "name": "Requested Ratings",
     "developer": "hiimjustin000",
@@ -74,6 +74,11 @@
             "type": "bool",
             "default": false
         }
+    },
+    "links": {
+        "community": "https://discord.gg/QVKmbvBXA7",
+        "source": "https://github.com/hiimjustin000/RequestedRatings",
+        "homepage": "https://www.hiimjustin000.com"
     },
     "tags": [
         "enhancement",
