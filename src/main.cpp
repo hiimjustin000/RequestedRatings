@@ -3,18 +3,46 @@
 using namespace geode::prelude;
 
 void updateDifficultySprite(GJDifficultySprite* sprite, GJGameLevel* level) {
-    if (level->m_stars.value() == 0 && level->m_starsRequested > 0) switch (level->m_starsRequested) {
-        case 1: sprite->updateDifficultyFrame(-1, GJDifficultyName::Short); break;
-        case 2: sprite->updateDifficultyFrame(1, GJDifficultyName::Short); break;
-        case 3: sprite->updateDifficultyFrame(2, GJDifficultyName::Short); break;
-        case 4: case 5: sprite->updateDifficultyFrame(3, GJDifficultyName::Short); break;
-        case 6: case 7: sprite->updateDifficultyFrame(4, GJDifficultyName::Short); break;
-        case 8: case 9: sprite->updateDifficultyFrame(5, GJDifficultyName::Short); break;
-        case 10: sprite->updateDifficultyFrame(6, GJDifficultyName::Short); break;
-        default:
-            if (Mod::get()->getSettingValue<bool>("na-override")) sprite->updateDifficultyFrame(0, GJDifficultyName::Short);
-            break;
-    }
+    if (level->m_stars.value() == 0 && level->m_featured == 0 && level->m_isEpic == 0 && level->m_starsRequested > 0) {
+        auto difficulty = 0;
+        auto update = false;
+        switch (level->m_starsRequested) {
+            case 1: // Auto
+                difficulty = -1;
+                update = Mod::get()->getSettingValue<bool>("enable-auto");
+                break;
+            case 2: // Easy
+                difficulty = 1;
+                update = Mod::get()->getSettingValue<bool>("enable-easy");
+                break;
+            case 3: // Normal
+                difficulty = 2;
+                update = Mod::get()->getSettingValue<bool>("enable-normal");
+                break;
+            case 4: case 5: // Hard
+                difficulty = 3;
+                update = Mod::get()->getSettingValue<bool>("enable-hard");
+                break;
+            case 6: case 7: // Harder
+                difficulty = 4;
+                update = Mod::get()->getSettingValue<bool>("enable-harder");
+                break;
+            case 8: case 9: // Insane
+                difficulty = 5;
+                update = Mod::get()->getSettingValue<bool>("enable-insane");
+                break;
+            case 10: // Demon
+                difficulty = 6;
+                update = Mod::get()->getSettingValue<bool>("enable-demon");
+                break;
+            default: // NA
+                difficulty = 0;
+                update = Mod::get()->getSettingValue<bool>("na-override");
+                break;
+        }
+
+        if (update) sprite->updateDifficultyFrame(difficulty, GJDifficultyName::Short);
+    } 
 }
 
 #include <Geode/modify/LevelInfoLayer.hpp>

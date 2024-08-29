@@ -5,7 +5,7 @@
         "win": "2.206",
         "mac": "2.206"
     },
-    "version": "v1.0.2",
+    "version": "v1.1.0",
     "id": "hiimjustin000.requested_ratings",
     "name": "Requested Ratings",
     "developer": "hiimjustin000",
@@ -26,6 +26,48 @@
         }
     ],
     "settings": {
+        "enable-auto": {
+            "name": "Enable Auto",
+            "description": "Enables the auto difficulty for levels with a requested rating of 1 star.",
+            "type": "bool",
+            "default": true
+        },
+        "enable-easy": {
+            "name": "Enable Easy",
+            "description": "Enables the easy difficulty for levels with a requested rating of 2 stars.",
+            "type": "bool",
+            "default": true
+        },
+        "enable-normal": {
+            "name": "Enable Normal",
+            "description": "Enables the normal difficulty for levels with a requested rating of 3 stars.",
+            "type": "bool",
+            "default": true
+        },
+        "enable-hard": {
+            "name": "Enable Hard",
+            "description": "Enables the hard difficulty for levels with a requested rating of 4 or 5 stars.",
+            "type": "bool",
+            "default": true
+        },
+        "enable-harder": {
+            "name": "Enable Harder",
+            "description": "Enables the harder difficulty for levels with a requested rating of 6 or 7 stars.",
+            "type": "bool",
+            "default": true
+        },
+        "enable-insane": {
+            "name": "Enable Insane",
+            "description": "Enables the insane difficulty for levels with a requested rating of 8 or 9 stars.",
+            "type": "bool",
+            "default": true
+        },
+        "enable-demon": {
+            "name": "Enable Demon",
+            "description": "Enables the demon difficulty for levels with a requested rating of 10 stars.",
+            "type": "bool",
+            "default": true
+        },
         "na-override": {
             "name": "NA Override",
             "description": "Changes the rating of levels with a requested rating above 10 stars to NA.",

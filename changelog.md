@@ -1,4 +1,8 @@
 # Requested Ratings Changelog
+## v1.1.0 (2024-08-29)
+- Added the option to enable/disable certain difficulties for the rating request
+- Disabled the ratings when a level is featured without stars
+
 ## v1.0.2 (2024-08-05)
 - Fixed a huge goof
 
