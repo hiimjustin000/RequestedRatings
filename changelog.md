@@ -1,4 +1,7 @@
 # Requested Ratings Changelog
+## v1.1.2 (2024-09-07)
+- Fixed a bug where the mod would rate unrated demon levels as demon
+
 ## v1.1.1 (2024-08-29)
 - Added additional links to the mod info page
 

@@ -3,7 +3,7 @@
 using namespace geode::prelude;
 
 void updateDifficultySprite(GJDifficultySprite* sprite, GJGameLevel* level) {
-    if (level->m_stars.value() == 0 && level->m_featured == 0 && level->m_isEpic == 0 && level->m_starsRequested > 0) {
+    if (level->m_stars.value() == 0 && level->m_demon.value() == 0 && level->m_featured == 0 && level->m_isEpic == 0 && level->m_starsRequested > 0) {
         auto difficulty = 0;
         auto update = false;
         switch (level->m_starsRequested) {
