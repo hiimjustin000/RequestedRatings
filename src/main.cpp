@@ -1,5 +1,3 @@
-#include <Geode/Geode.hpp>
-
 using namespace geode::prelude;
 
 void updateDifficultySprite(GJDifficultySprite* sprite, GJGameLevel* level) {

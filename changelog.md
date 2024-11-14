@@ -1,4 +1,7 @@
 # Requested Ratings Changelog
+## v1.1.3-beta.1 (2024-11-14)
+- Ported to Geometry Dash v2.207
+
 ## v1.1.2 (2024-09-07)
 - Fixed a bug where the mod would rate unrated demon levels as demon
 
